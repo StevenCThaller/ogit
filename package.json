@@ -1,0 +1,18 @@
+{
+  "name": "ogit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "build": "yarn workspace client build && yarn workspace server build",
+    "dev": "concurrently \"yarn workspace server dev\" \"yarn workspace client dev\""
+  }
+}

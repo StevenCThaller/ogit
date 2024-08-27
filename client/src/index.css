@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.local-map {
+  width: 400px;
+  height: 400px;
+}
+
+.ogit-pin {
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid blue;
+  box-shadow: 0px 0px 4px 4px gray;
+}
+
+.pin-title {
+  font-size: 1.3em;
+  /* color: ; */
+}
