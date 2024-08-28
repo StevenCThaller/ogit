@@ -39,49 +39,61 @@ export const requireAdmin = async (
   next();
 };
 
-export const validateRegistration = celebrate({
-  [Segments.BODY]: Joi.object().keys({
-    username: Joi.string().min(4).max(16).required().messages({
-      "string.base": "Username must be a string.",
-      "string.min": "Username must be at least 4 characters.",
-      "string.max": "Username cannot be longer than 16 characters.",
-      "any.required": "Username is a required field.",
-    }),
-    email: Joi.string().email().required().messages({
-      "string.base": "Email must be a string.",
-      "string.email": "Invalid email address.",
-      "any.required": "Email is required.",
-    }),
-    password: Joi.string().min(8).max(24).required().messages({
-      "string.base": "Password must be a string.",
-      "string.min": "Password must be at least 8 characters.",
-      "string.max": "Password cannot be longer than 24 characters.",
-      "any.required": "Password is required.",
-    }),
-    confirmPassword: Joi.string()
-      .required()
-      .valid(Joi.ref("password"))
-      .messages({
-        "string.base": "Password confirmation must be a string.",
-        "any.required": "You must confirm your password.",
-        "any.only": "Passwords must match.",
+export const validateRegistration = celebrate(
+  {
+    [Segments.BODY]: Joi.object().keys({
+      username: Joi.string().min(4).max(16).required().messages({
+        "string.empty": "Username is a required field.",
+        "string.base": "Username must be a string.",
+        "string.min": "Username must be at least 4 characters.",
+        "string.max": "Username cannot be longer than 16 characters.",
+        "any.required": "Username is a required field.",
       }),
-  }),
-});
+      email: Joi.string().email().required().messages({
+        "string.empty": "Email is a required field.",
+        "string.base": "Email must be a string.",
+        "string.email": "Invalid email address.",
+        "any.required": "Email is a required field.",
+      }),
+      password: Joi.string().min(8).max(24).required().messages({
+        "string.empty": "Password is a required field.",
+        "string.base": "Password must be a string.",
+        "string.min": "Password must be at least 8 characters.",
+        "string.max": "Password cannot be longer than 24 characters.",
+        "any.required": "Password is a required field.",
+      }),
+      confirmPassword: Joi.string()
+        .required()
+        .valid(Joi.ref("password"))
+        .messages({
+          "string.empty": "Confirm password is a required field.",
+          "string.base": "Password confirmation must be a string.",
+          "any.required": "You must confirm your password.",
+          "any.only": "Passwords must match.",
+        }),
+    }),
+  },
+  { abortEarly: false }
+);
 
-export const validateLogin = celebrate({
-  [Segments.BODY]: Joi.object().keys({
-    username: Joi.string().min(4).max(24).required().messages({
-      "string.base": "Username must be a string.",
-      "string.min": "Username must be at least 4 characters.",
-      "string.max": "Username cannot be longer than 24 characters.",
-      "any.required": "Username is a required field.",
+export const validateLogin = celebrate(
+  {
+    [Segments.BODY]: Joi.object().keys({
+      username: Joi.string().min(4).max(16).required().messages({
+        "string.base": "Username must be a string.",
+        "string.empty": "Username is a required field.",
+        "string.min": "Username must be at least 4 characters.",
+        "string.max": "Username cannot be longer than 16 characters.",
+        "any.required": "Username is a required field.",
+      }),
+      password: Joi.string().min(8).max(24).required().messages({
+        "string.base": "Password must be a string.",
+        "string.empty": "Password is a required field.",
+        "string.min": "Password must be at least 8 characters.",
+        "string.max": "Password cannot be longer than 24 characters",
+        "any.required": "Password is required.",
+      }),
     }),
-    password: Joi.string().min(8).max(24).required().messages({
-      "string.base": "Password is required.",
-      "string.min": "Password must be at least 8 characters.",
-      "string.max": "Password cannot be longer than 24 characters",
-      "any.required": "Password is required.",
-    }),
-  }),
-});
+  },
+  { abortEarly: false }
+);

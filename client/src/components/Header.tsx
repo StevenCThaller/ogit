@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 function Header() {
   const {
-    auth: { isAuthenticated },
+    auth: { isAuthenticated, user },
   } = useAuth();
   return (
     <Navbar expand="md" bg="dark" variant="dark">
@@ -13,14 +13,16 @@ function Header() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="top-nav" />
         <Navbar.Collapse id="top-nav">
-          <Nav className="me-auto">
+          {/* <Nav className="me-auto">
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
-          </Nav>
+          </Nav> */}
           <Nav className="ms-auto">
             {isAuthenticated ? (
-              <></>
+              <Nav.Link as={Link} to={`/${user._id}/settings`}>
+                {user.username}
+              </Nav.Link>
             ) : (
               <Nav.Link as={Link} to="/auth">
                 Sign In

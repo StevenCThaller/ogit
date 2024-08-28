@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useAuth } from "../hooks/useAuth";
 
@@ -34,7 +34,6 @@ function AuthPage() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setErrors({ ...errors, ...error.error });
-      // setErrors(error.???)
     }
   };
   const handleSignUp = async () => {
@@ -44,7 +43,6 @@ function AuthPage() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setErrors({ ...errors, ...error.error });
-      // setErrors(error.???)
     }
   };
 

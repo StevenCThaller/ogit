@@ -4,7 +4,10 @@ import { authContext } from "../contexts/authContext";
 import { handleSignin, handleSignUp } from "../services/api.services";
 import { toast } from "react-toastify";
 import { setAuthToken } from "../utils/axios.utils";
-import { LOCAL_STORAGE_TOKEN_KEY } from "../constants";
+import {
+  LOCAL_STORAGE_TOKEN_KEY,
+  LOCAL_STORAGE_USERID_KEY,
+} from "../constants";
 
 const useProvideAuth = () => useContext(authContext);
 
@@ -23,6 +26,7 @@ export const useAuth = () => {
       setAuthToken(response.token);
       dispatch({ type: "LOGIN", payload: response.user });
       localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, response.token);
+      localStorage.setItem(LOCAL_STORAGE_USERID_KEY, response.user._id);
       toast.success(`Welcome, ${username}!`);
       /**
        * TODO: Navigate somewhere

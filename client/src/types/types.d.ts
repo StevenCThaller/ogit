@@ -1,8 +1,24 @@
-type IUser = {
+type User = {
   _id: string;
   username: string;
-  token: string;
+  email?: string;
+  posts: Post[];
+  createdAt?: Date;
+  updatedAt?: Date;
 };
+
+type Post = {
+  caption?: string;
+  imgUrl: string;
+  location: {
+    type: "Point";
+    coordinates: [number, number];
+  };
+  poster: string | User;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 type AuthLoginResponse = {
   token: string;
   user: IUser;
