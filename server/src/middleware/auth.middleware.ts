@@ -2,7 +2,7 @@ import { celebrate, Joi, Segments } from "celebrate";
 import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
 import { jwt_secret } from "../config/auth.config";
-import { AuthRequest } from "../types";
+import { AuthRequest } from "../types/types";
 import { User } from "../models";
 
 export const requireAuth = async (

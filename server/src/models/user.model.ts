@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 import { EMAIL_REGEX } from "../constants";
-import { IUser } from "../types";
 
 export const userSchema = new Schema<IUser>(
   {

@@ -48,6 +48,10 @@ Modify the following files:
 - `PORT`* - your port of choice
 - `JWT_SECRET`* - any randomized long string of characters
 - `API_URL`* - whatever you wish to use as the API url
+- `AWS_ACCESS_KEY_ID` - AWS access key for S3 uploads
+- `AWS_SECRET_ACCESS_KEY` - AWS secret key for S3 uploads
+- `AWS_REGION` - AWS region for S3 bucket
+- `S3_BUCKET_NAME` - name of the S3 bucket
 
 ### /client/.env *optional for local development
 - `VITE_GOOGLE_MAPS_API_KEY` - retrieved from Google's developer console

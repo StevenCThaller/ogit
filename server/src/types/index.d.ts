@@ -1,9 +1,3 @@
-import { Request } from "express";
-
-type AuthRequest = Request & {
-  user?: any;
-};
-
 interface IUser {
   _id?: string;
   email: string;
@@ -12,4 +6,11 @@ interface IUser {
   role: number;
   createdAd?: Date;
   updatedAt?: Date;
+}
+
+interface IOgitPost {
+  _id?: string;
+  imgUrl: string;
+  lat: number;
+  lng: number;
 }

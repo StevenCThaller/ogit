@@ -31,14 +31,20 @@ function AuthPage() {
     const { username, password } = formData;
     try {
       await signIn(username, password);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      // setErrors(error.???)
+    }
   };
   const handleSignUp = async () => {
     const { username, email, password, confirmPassword } = formData;
     try {
       await signUp(username, email, password, confirmPassword);
       await handleSignIn();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      // setErrors(error.???)
+    }
   };
 
   const handleInputChange = (
