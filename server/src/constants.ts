@@ -5,3 +5,4 @@ export const S3_REGEX: RegExp = new RegExp(
 );
 export const EARTH_RADIUS_RADIANS: number = 6378100;
 export const MAX_MAP_RADIUS: number = 40075000;
+export const INVALID_USER_ERROR = new Error("Invalid user");

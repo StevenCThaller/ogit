@@ -1,7 +1,10 @@
 import { Router } from "express";
 import {
   handleCreatePost,
+  handleDeletePost,
+  handleGetPostById,
   handleGetPosts,
+  handleUpdatePost,
 } from "../controllers/ogitPost.controller";
 import { requireAuth } from "../middleware/auth.middleware";
 import {
@@ -27,14 +30,14 @@ router
   /**
    * Get a specific post
    */
-  .get()
+  .get(handleGetPostById)
   /**
    * Edit a post (i.e. edit image or caption)
    */
-  .put()
+  .put(requireAuth, handleUpdatePost)
   /**
    * Delete a post - make sure it also deletes from AWS
    */
-  .delete();
+  .delete(requireAuth, handleDeletePost);
 
 export default router;
