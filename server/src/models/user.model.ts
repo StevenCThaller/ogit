@@ -13,17 +13,26 @@ export const userSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
-    role: {
-      type: Number,
-      min: 1,
-      max: 3,
-      default: 3,
-    },
+    posts: [{ type: Schema.Types.ObjectId, ref: "OgitPost" }],
+    // role: {
+    //   type: Number,
+    //   min: 1,
+    //   max: 3,
+    //   default: 3,
+    // },
     // tokenRotation: {
     //   type: Array<String>
     // }
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      transform: function (doc, ret, options) {
+        delete ret.passwordHash;
+        return ret;
+      },
+    },
+  }
 );
 
 const User = model<IUser>("User", userSchema);
