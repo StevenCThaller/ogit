@@ -7,7 +7,13 @@ import {
 } from "../services/auth.services";
 import { signJwt } from "../utils/auth.utils";
 import { jwt_secret } from "../config/auth.config";
-import { UserDocument } from "../types/types";
+import { IUser } from "../types/types";
+
+type UserValidationError = {
+  error: {
+    [key: string]: string;
+  };
+};
 
 export const handleRegister = async (
   req: Request,
@@ -48,9 +54,7 @@ export const handleLogin = async (
   try {
     const { username, password } = req.body;
 
-    const candidateUser: UserDocument | null = await findUserByUsername(
-      username
-    );
+    const candidateUser: IUser | null = await findUserByUsername(username);
 
     const passwordMatches =
       candidateUser &&

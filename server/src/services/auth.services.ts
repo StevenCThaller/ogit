@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import { hash_rounds } from "../config/auth.config";
 import { User } from "../models";
 import { mongooseLowerRegex } from "../utils/mongoose.utils";
+import { IUser } from "../types/types";
 
 export const createUser = async (
   username: string,
@@ -10,7 +11,7 @@ export const createUser = async (
 ) => {
   const passwordHash: string = await bcrypt.hash(password, hash_rounds);
 
-  const userData: IUser = {
+  const userData = {
     username,
     email,
     passwordHash,

@@ -11,5 +11,5 @@ export const validationErrorHandler: (
   if (!isCelebrateError(error)) return next(error);
 
   const errorBody = generateValidationErrors(error);
-  res.status(422).json(errorBody);
+  res.status(422).json({ error: errorBody });
 };
