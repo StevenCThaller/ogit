@@ -4,6 +4,7 @@ import { authContext } from "../contexts/authContext";
 import { handleSignin, handleSignUp } from "../services/api.services";
 import { toast } from "react-toastify";
 import { setAuthToken } from "../utils/axios.utils";
+import { LOCAL_STORAGE_TOKEN_KEY } from "../constants";
 
 const useProvideAuth = () => useContext(authContext);
 
@@ -21,6 +22,7 @@ export const useAuth = () => {
 
       setAuthToken(response.token);
       dispatch({ type: "LOGIN", payload: response.user });
+      localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, response.token);
       toast.success(`Welcome, ${username}!`);
       /**
        * TODO: Navigate somewhere
@@ -28,7 +30,8 @@ export const useAuth = () => {
       navigate(`/${response.user._id}/dashboard`);
     } catch (error) {
       console.log(error);
-      toast.error(":(");
+      toast.error("Something went wrong. Check the errors and try again.");
+      throw error;
     }
   };
 
@@ -40,8 +43,11 @@ export const useAuth = () => {
   ) => {
     try {
       await handleSignUp(username, email, password, confirmPassword);
+      await signIn(username, password);
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong. Check the errors and try again.");
+      throw error;
     }
   };
 

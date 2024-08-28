@@ -1,6 +1,10 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 function Header() {
+  const {
+    auth: { isAuthenticated },
+  } = useAuth();
   return (
     <Navbar expand="md" bg="dark" variant="dark">
       <Container>
@@ -13,6 +17,15 @@ function Header() {
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
+          </Nav>
+          <Nav className="ms-auto">
+            {isAuthenticated ? (
+              <></>
+            ) : (
+              <Nav.Link as={Link} to="/auth">
+                Sign In
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

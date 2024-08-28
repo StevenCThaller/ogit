@@ -6,18 +6,13 @@ export const handleSignUp: ServiceSignUp = async (
   email: string,
   password: string,
   confirmPassword: string
-) => {
-  try {
-    await _axios.post("/auth/signup", {
-      username,
-      email,
-      password,
-      confirmPassword,
-    });
-  } catch (error) {
-    console.log("wat", error);
-  }
-};
+) =>
+  _axios.post("/auth/signup", {
+    username,
+    email,
+    password,
+    confirmPassword,
+  });
 
 export const handleSignin: (
   username: string,
@@ -25,18 +20,11 @@ export const handleSignin: (
 ) => Promise<AuthLoginResponse | void> = async (
   username: string,
   password: string
-) => {
-  try {
-    const response: AuthLoginResponse = await _axios.post("/auth/signin", {
-      username,
-      password,
-    });
-    toast.success(`Welcome, ${username}`);
-    return response;
-  } catch (error) {
-    console.log("like, idk", error);
-  }
-};
+) =>
+  _axios.post("/auth/signin", {
+    username,
+    password,
+  });
 
 export const handleSubmitContactMessage: (
   name: string,

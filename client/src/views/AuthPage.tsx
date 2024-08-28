@@ -23,7 +23,7 @@ function AuthPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (formToDisplay === "signIn") handleSignIn();
+    if (formToDisplay === "signin") handleSignIn();
     else handleSignUp();
   };
 
@@ -31,8 +31,9 @@ function AuthPage() {
     const { username, password } = formData;
     try {
       await signIn(username, password);
-    } catch (error) {
-      console.log(error);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      setErrors({ ...errors, ...error.error });
       // setErrors(error.???)
     }
   };
@@ -40,20 +41,20 @@ function AuthPage() {
     const { username, email, password, confirmPassword } = formData;
     try {
       await signUp(username, email, password, confirmPassword);
-      await handleSignIn();
-    } catch (error) {
-      console.log(error);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      setErrors({ ...errors, ...error.error });
       // setErrors(error.???)
     }
   };
 
   const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) =>
-    setFormData((currFormData) => ({
-      ...currFormData,
+    setFormData({
+      ...formData,
       [e.currentTarget.name]: e.currentTarget.value,
-    }));
+    });
 
   const headingText = formToDisplay === "signin" ? "Sign In" : "Create Account";
 
@@ -69,8 +70,9 @@ function AuthPage() {
             id="username"
             value={formData.username}
             onChange={handleInputChange}
+            autoComplete="off"
           />
-          <Form.Text className="danger">{errors.username}</Form.Text>
+          <Form.Text className="text-danger">{errors.username}</Form.Text>
         </Form.Group>
         {formToDisplay === "signup" && (
           <Form.Group className="mb-2">
@@ -81,8 +83,9 @@ function AuthPage() {
               id="email"
               value={formData.email}
               onChange={handleInputChange}
+              autoComplete="off"
             />
-            <Form.Text className="danger">{errors.email}</Form.Text>
+            <Form.Text className="text-danger">{errors.email}</Form.Text>
           </Form.Group>
         )}
         <Form.Group className="mb-2">
@@ -94,7 +97,7 @@ function AuthPage() {
             value={formData.password}
             onChange={handleInputChange}
           />
-          <Form.Text className="danger">{errors.password}</Form.Text>
+          <Form.Text className="text-danger">{errors.password}</Form.Text>
         </Form.Group>
         {formToDisplay === "signup" && (
           <Form.Group className="mb-2">
@@ -106,7 +109,9 @@ function AuthPage() {
               value={formData.confirmPassword}
               onChange={handleInputChange}
             />
-            <Form.Text className="danger">{errors.confirmPassword}</Form.Text>
+            <Form.Text className="text-danger">
+              {errors.confirmPassword}
+            </Form.Text>
           </Form.Group>
         )}
         <Form.Group className="mb-2 mt-2">
@@ -114,15 +119,21 @@ function AuthPage() {
             {formToDisplay === "signin" ? "Sign In" : "Create Account"}
           </Button>
         </Form.Group>
-        <Form.Group className="d-flex justify-content-center gap-2 align-items-baseline">
-          <Form.Text>Sign In</Form.Text>
-          <Form.Check
-            className="ms-2"
-            type="switch"
-            id="toggle-form"
-            onChange={handleToggleDisplayedForm}
-          />
-          <Form.Text>Create Account</Form.Text>
+        <Form.Group>
+          <Form.Label
+            id="form-switch-toggle"
+            className=" d-flex justify-content-center gap-2 align-items-baseline"
+          >
+            Sign In
+            <Form.Check
+              className="ms-2"
+              type="switch"
+              name="form-switch-toggle"
+              id="toggle-form"
+              onChange={handleToggleDisplayedForm}
+            />
+            Create Account
+          </Form.Label>
         </Form.Group>
       </Form>
     </Container>

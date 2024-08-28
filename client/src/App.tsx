@@ -1,4 +1,4 @@
-import { ToastContainer } from "react-bootstrap";
+import { ToastContainer } from "react-toastify";
 import "./App.css";
 import { Header } from "./components";
 import { Route, Routes } from "react-router-dom";
@@ -8,11 +8,11 @@ function App() {
   return (
     <>
       <Header />
-      <ToastContainer />
       <Routes>
         <Route path="/:uid/dashboard" />
         <Route path="/auth" element={<AuthPage />} />
       </Routes>
+      <ToastContainer />
     </>
   );
 }
