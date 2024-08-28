@@ -28,6 +28,7 @@ router.post(
   "/upload",
   upload.single("image"),
   (req: FileUploadRequest, res: Response) => {
+    console.log(req.file);
     if (!req.file || !req.file.location) {
       return res.status(400).send("No file uploaded.");
     }

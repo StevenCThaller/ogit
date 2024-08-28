@@ -1,9 +1,11 @@
 import jwt from "jsonwebtoken";
-import { IUser } from "../types";
+import { Document } from "mongoose";
+import { UserDocument } from "../types/types";
 
-export const signJwt = (user: IUser, secret: string) => {
+export const signJwt = (user: IUser | UserDocument, secret: string) => {
   const payload = {
     sub: user._id,
+    email: user.email,
   };
   return jwt.sign(payload, secret, { expiresIn: "1h" });
 };
