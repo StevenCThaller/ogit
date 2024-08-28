@@ -6,6 +6,10 @@ import { api_url, onServerListen, port } from "./config/app.config";
 import mongoose from "mongoose";
 import { db_url, onDbConnect, onDbFail } from "./config/db.config";
 import router from "./routes";
+import {
+  invalidUserErrorHandler,
+  validationErrorHandler,
+} from "./middleware/errors.middleware";
 
 mongoose.connect(db_url).then(onDbConnect).catch(onDbFail);
 
@@ -23,6 +27,9 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "../../../client/dist/index.html"))
   );
 }
+
+app.use(validationErrorHandler);
+app.use(invalidUserErrorHandler);
 
 app.listen(port, onServerListen);
 

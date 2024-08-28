@@ -1,8 +1,16 @@
 import { Schema, model } from "mongoose";
 import { EMAIL_REGEX } from "../constants";
+import { IUser } from "../types/types";
 
 export const userSchema = new Schema<IUser>(
   {
+    username: {
+      type: String,
+      required: true,
+      minLength: 4,
+      maxLength: 16,
+      unique: true,
+    },
     email: {
       type: String,
       match: EMAIL_REGEX,

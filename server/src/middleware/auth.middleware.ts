@@ -41,10 +41,10 @@ export const requireAdmin = async (
 
 export const validateRegistration = celebrate({
   [Segments.BODY]: Joi.object().keys({
-    username: Joi.string().min(4).max(24).required().messages({
+    username: Joi.string().min(4).max(16).required().messages({
       "string.base": "Username must be a string.",
       "string.min": "Username must be at least 4 characters.",
-      "string.max": "Username cannot be longer than 24 characters.",
+      "string.max": "Username cannot be longer than 16 characters.",
       "any.required": "Username is a required field.",
     }),
     email: Joi.string().email().required().messages({

@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import { Document } from "mongoose";
-import { UserDocument } from "../types/types";
+import { IUser } from "../types/types";
 
-export const signJwt = (user: IUser | UserDocument, secret: string) => {
+export const signJwt = (user: IUser, secret: string) => {
   const payload = {
     sub: user._id,
     email: user.email,
