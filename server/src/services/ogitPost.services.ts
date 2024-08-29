@@ -15,7 +15,7 @@ export const getPostsAroundLocation = async (
         $centerSphere: [center, radiusInMeters / EARTH_RADIUS_RADIANS],
       },
     },
-  });
+  }).populate("poster");
 };
 
 export const getUserPostsAroundLocation = async (
@@ -30,7 +30,7 @@ export const getUserPostsAroundLocation = async (
         $centerSphere: [center, radiusInMeters / EARTH_RADIUS_RADIANS],
       },
     },
-  });
+  }).populate("poster");
 };
 
 export const getPostById = async (postId: string) => {

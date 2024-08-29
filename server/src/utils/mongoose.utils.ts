@@ -1,3 +1,6 @@
-export const mongooseLowerRegex = (value: string) => ({
-  $regex: new RegExp("^" + value.toLowerCase(), "i"),
-});
+export const mongooseLowerRegex = (value: string) => {
+  return {
+    $regex: `^${value}$`,
+    $options: "i",
+  };
+};

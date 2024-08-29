@@ -1,8 +1,25 @@
-type IUser = {
+type User = {
   _id: string;
   username: string;
-  token: string;
+  email?: string;
+  posts: OgitPost[];
+  createdAt?: Date;
+  updatedAt?: Date;
 };
+
+type OgitPost = {
+  _id?: string;
+  caption?: string;
+  imgUrl: string;
+  location: {
+    type: "Point";
+    coordinates: [number, number];
+  };
+  poster: User;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 type AuthLoginResponse = {
   token: string;
   user: IUser;

@@ -1,17 +1,32 @@
 import { ToastContainer } from "react-toastify";
 import "./App.css";
 import { Header } from "./components";
-import { Route, Routes } from "react-router-dom";
-import { AuthPage } from "./views";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { AuthPage, PinCreationPage } from "./views";
+import { useAuth } from "./hooks/useAuth";
+import Dashboard from "./views/Dashboard";
 
 function App() {
+  const {
+    auth: { isAuthenticated, user },
+  } = useAuth();
+
   return (
     <>
       <Header />
-      <Routes>
-        <Route path="/:uid/dashboard" />
-        <Route path="/auth" element={<AuthPage />} />
-      </Routes>
+      {isAuthenticated ? (
+        <Routes>
+          <Route path="*" element={<Navigate to={`/${user._id}/explore`} />} />
+          <Route path="/:uid/create" element={<PinCreationPage />} />
+          <Route path="/:uid/explore" element={<Dashboard />} />
+        </Routes>
+      ) : (
+        <Routes>
+          {/* TODO: create an actual loading spinny page thing */}
+          <Route path="/:uid/dashboard" element={<main>please wait</main>} />
+          <Route path="/auth" element={<AuthPage />} />
+        </Routes>
+      )}
       <ToastContainer />
     </>
   );

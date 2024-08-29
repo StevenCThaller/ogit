@@ -5,17 +5,17 @@ import React, { createContext, useContext, useReducer } from "react";
  * TODO: types
  */
 type OgitMapState = {
-  myPins: any[];
-  friendPins: any[];
-  focusedPin: any | null;
+  pins: OgitPost[];
+  focusedPin: OgitPost | undefined;
 };
 
-type OgitMapAction = { type: "" };
+type OgitMapAction =
+  | { type: "FOCUS_PIN"; payload?: string }
+  | { type: "LOAD_PINS"; payload: OgitPost[] };
 
 const initialState: OgitMapState = {
-  myPins: [],
-  friendPins: [],
-  focusedPin: null,
+  pins: [],
+  focusedPin: undefined,
 };
 
 const reducer: (state: OgitMapState, action: OgitMapAction) => OgitMapState = (
@@ -23,6 +23,20 @@ const reducer: (state: OgitMapState, action: OgitMapAction) => OgitMapState = (
   action: OgitMapAction
 ) => {
   switch (action.type) {
+    case "FOCUS_PIN": {
+      console.log(state.pins);
+      return {
+        ...state,
+        focusedPin:
+          state.pins.find((post) => post._id === action.payload) || undefined,
+      };
+    }
+    case "LOAD_PINS": {
+      return {
+        ...state,
+        pins: action.payload,
+      };
+    }
     default: {
       return state;
     }
@@ -51,4 +65,18 @@ export const ProvideOgitMap = ({ children }: React.PropsWithChildren) => {
   );
 };
 
-export const useOgitMap = () => {};
+export const useOgitMap = () => {
+  const { state, dispatch } = useProvideOgitMap();
+
+  const focusPin = (pinId?: string) =>
+    dispatch({ type: "FOCUS_PIN", payload: pinId });
+
+  const loadPins = (pins: OgitPost[]) =>
+    dispatch({ type: "LOAD_PINS", payload: pins });
+
+  return {
+    ogitState: state,
+    focusPin,
+    loadPins,
+  };
+};

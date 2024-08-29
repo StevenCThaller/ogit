@@ -4,4 +4,6 @@ export const API_URL = import.meta.env.VITE_API_URL || "api";
 export const API_TARGET =
   import.meta.env.VITE_API_TARGET || "http://localhost:3001";
 export const LOCAL_STORAGE_TOKEN_KEY: string =
-  import.meta.env.LOCAL_STORAGE_TOKEN_KEY || "ogit-user";
+  import.meta.env.LOCAL_STORAGE_TOKEN_KEY || "ogitoken";
+export const LOCAL_STORAGE_USERID_KEY: string =
+  import.meta.env.LOCAL_STORAGE_USERID_KEY || "ogitsub";

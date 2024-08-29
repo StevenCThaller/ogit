@@ -7,7 +7,9 @@ import {
 } from "../services/auth.services";
 import { signJwt } from "../utils/auth.utils";
 import { jwt_secret } from "../config/auth.config";
-import { IUser } from "../types/types";
+import { AuthRequest, IUser } from "../types/types";
+import { INVALID_USER_ERROR } from "../constants";
+import { getUserById } from "../services/user.services";
 
 type UserValidationError = {
   error: {
@@ -68,6 +70,24 @@ export const handleLogin = async (
     const token: string = signJwt(candidateUser, jwt_secret);
 
     res.status(200).json({ token, user: candidateUser.toJSON() });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const handleGetUserInfo = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { userId } = req.params;
+    const { _id } = req.user;
+
+    if (!_id.equals(userId)) throw INVALID_USER_ERROR;
+    const user = await getUserById(_id);
+
+    res.json(user);
   } catch (error) {
     next(error);
   }

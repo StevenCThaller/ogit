@@ -1,9 +1,9 @@
 type MarkerElementProps = {
-  title: string;
+  // title: string;
   imgUrl: string;
 };
 
-function MarkerElement({ title, imgUrl }: MarkerElementProps) {
+function MarkerElement({ imgUrl }: MarkerElementProps) {
   return (
     <div
       style={{
@@ -11,7 +11,7 @@ function MarkerElement({ title, imgUrl }: MarkerElementProps) {
       }}
       className="ogit-pin"
     >
-      <span className="pin-title">{title}</span>
+      {/* <span className="pin-title">{title}</span> */}
     </div>
   );
 }
