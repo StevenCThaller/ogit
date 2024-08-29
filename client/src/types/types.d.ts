@@ -2,19 +2,20 @@ type User = {
   _id: string;
   username: string;
   email?: string;
-  posts: Post[];
+  posts: OgitPost[];
   createdAt?: Date;
   updatedAt?: Date;
 };
 
-type Post = {
+type OgitPost = {
+  _id?: string;
   caption?: string;
   imgUrl: string;
   location: {
     type: "Point";
     coordinates: [number, number];
   };
-  poster: string | User;
+  poster: User;
   createdAt: Date;
   updatedAt: Date;
 };

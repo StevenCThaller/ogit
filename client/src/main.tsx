@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
@@ -10,16 +9,16 @@ import { BrowserRouter } from "react-router-dom";
 import ProvideAuth from "./providers/ProvideAuth.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <ProvideAuth>
-        <APIProvider
-          apiKey={google_maps_api_key}
-          onLoad={() => console.log("Maps API has loaded")}
-        >
-          <App />
-        </APIProvider>
-      </ProvideAuth>
-    </BrowserRouter>
-  </StrictMode>
+  // <StrictMode>
+  <BrowserRouter>
+    <ProvideAuth>
+      <APIProvider
+        apiKey={google_maps_api_key}
+        onLoad={() => console.log("Maps API has loaded")}
+      >
+        <App />
+      </APIProvider>
+    </ProvideAuth>
+  </BrowserRouter>
+  // </StrictMode>
 );

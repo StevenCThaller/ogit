@@ -19,7 +19,7 @@ router
   /**
    * Get all posts near user's current location
    */
-  .get(/*requireAuth, */ validateGetPosts, handleGetPosts)
+  .get(validateGetPosts, handleGetPosts)
   /**
    * Create a new post
    */

@@ -57,6 +57,9 @@ export const useAuth = () => {
 
   const signOut = () => {
     dispatch({ type: "LOGOUT" });
+    localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
+    localStorage.removeItem(LOCAL_STORAGE_USERID_KEY);
+    navigate("/auth");
   };
 
   return {

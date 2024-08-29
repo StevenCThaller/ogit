@@ -22,6 +22,7 @@ export const validateGetPosts = celebrate(
         "number.max": "That's too far.",
         "any.required": "Radius is a required field.",
       }),
+      userId: Joi.string(),
     }),
   },
   { abortEarly: false }

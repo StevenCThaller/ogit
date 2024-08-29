@@ -1,5 +1,4 @@
 import _axios from "../utils/axios.utils";
-import { toast } from "react-toastify";
 
 export const handleSignUp: ServiceSignUp = async (
   username: string,
@@ -26,18 +25,25 @@ export const handleSignin: (
     password,
   });
 
-export const handleSubmitContactMessage: (
-  name: string,
-  email: string,
-  message: string
-) => Promise<void> = async (name: string, email: string, message: string) => {
-  try {
-    await _axios.post("/contact", { name, email, message });
+export const handleGetMyPins = (
+  lng: number,
+  lat: number,
+  rad: number,
+  userId: string
+) => _axios.get("/ogit", { params: { lng, lat, rad, userId } });
 
-    toast.success(`Thanks, ${name}! Cody will email you back ASAP.`);
-  } catch (error) {
-    toast.error("Invalid submission, check the error messages!");
+export const handleUploadImage = async (image: File) => {
+  const formData = new FormData();
+  formData.append("image", image);
 
-    throw error;
-  }
+  return _axios.post("/files/upload", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 };
+
+export const handleCreateNewPin = (
+  imgUrl: string,
+  lng: number,
+  lat: number,
+  caption?: string
+) => _axios.post("/ogit", { caption, imgUrl, lat, lng });

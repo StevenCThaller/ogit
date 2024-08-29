@@ -4,13 +4,19 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #06080c !important;
+}
+
 .local-map {
-  width: 400px;
-  height: 400px;
+  width: 600px;
+  height: 600px;
 }
 
 .ogit-pin {
-  background-size: cover;
+  background-size: cover !important;
+  background-position: center;
+  background-repeat: no-repeat;
   width: 50px;
   height: 50px;
   position: relative;
@@ -19,7 +25,100 @@
   box-shadow: 0px 0px 4px 4px gray;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: white !important;
+}
+
+form {
+  color: white;
+}
+input,
+textarea {
+  color: black;
+}
+
+.ogit-pin-container {
+  cursor: pointer;
+  z-index: 1;
+}
+
 .pin-title {
   font-size: 1.3em;
   /* color: ; */
+}
+
+.local-map {
+  position: relative;
+}
+
+.selected-image {
+  width: 100px;
+  height: auto;
+  max-width: 100px;
+}
+
+.focused-ogit {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(1, 1, 1, 0.65); /* point six five for busky */
+  border-left: 3px solid white;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn-row {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 1em;
+  width: 100%;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2em;
+}
+
+.ogit-post-info {
+  width: 100%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.focused-ogit img {
+  max-width: 100%;
+}
+
+@media only screen and (max-width: 576px) {
+  body {
+    height: 100vh;
+    overflow: auto;
+  }
+  .local-map {
+    width: 100%;
+    height: 90vh;
+  }
+  .feed {
+    padding: 0 !important;
+  }
+}
+
+@media only screen and (min-width: 576px) {
+  .local-map {
+    width: 100%;
+    height: 80vh;
+  }
 }

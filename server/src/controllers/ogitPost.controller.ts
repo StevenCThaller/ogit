@@ -4,9 +4,10 @@ import {
   deleteOgitPost,
   getPostById,
   getPostsAroundLocation,
+  getUserPostsAroundLocation,
   updateOgitPostCaption,
 } from "../services/ogitPost.services";
-import { AuthRequest } from "../types/types";
+import { AuthRequest, IOgitPost } from "../types/types";
 import { addPostToUser } from "../services/user.services";
 
 interface GetPostsRequest extends Request {
@@ -14,6 +15,7 @@ interface GetPostsRequest extends Request {
     lat: string;
     lng: string;
     rad: string;
+    userId?: string;
   };
 }
 
@@ -23,12 +25,20 @@ export const handleGetPosts = async (
   next: NextFunction
 ) => {
   try {
-    const { lat, lng, rad } = req.query;
-
-    const posts = await getPostsAroundLocation(
-      [Number(lng), Number(lat)],
-      Number(rad)
-    );
+    const { lat, lng, rad, userId } = req.query;
+    let posts: IOgitPost[] = [];
+    if (userId) {
+      posts = await getUserPostsAroundLocation(
+        userId,
+        [Number(lng), Number(lat)],
+        Number(rad)
+      );
+    } else {
+      posts = await getPostsAroundLocation(
+        [Number(lng), Number(lat)],
+        Number(rad)
+      );
+    }
 
     res.json(posts);
   } catch (error) {
